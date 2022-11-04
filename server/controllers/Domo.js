@@ -13,13 +13,14 @@ const makeDomo = async (req, res) => {
   const domoData = {
     name: req.body.name,
     age: req.body.age,
+    fact: req.body.fact,
     owner: req.session.account._id,
   };
 
   try {
     const newDomo = new Domo(domoData);
     await newDomo.save();
-    return res.status(201).json({ name: newDomo.name, age: newDomo.age });
+    return res.status(201).json({ name: newDomo.name, age: newDomo.age, fact: newDomo.fact });
     // return res.json({ redirect: '/maker' });
   } catch (err) {
     console.log(err);

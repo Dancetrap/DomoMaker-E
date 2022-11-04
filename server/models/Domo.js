@@ -5,6 +5,7 @@ const _ = require('underscore');
 let DomoModel = {};
 
 const setName = (name) => _.escape(name).trim();
+const setFact = (fact) => _.escape(fact).trim();
 
 const DomoSchema = new mongoose.Schema({
   name: {
@@ -17,6 +18,14 @@ const DomoSchema = new mongoose.Schema({
     type: Number,
     min: 0,
     require: true,
+  },
+  fact: {
+    type: String,
+    required: true,
+    trim: true,
+    minLength: 10,
+    maxLength: 100,
+    set: setFact,
   },
   owner: {
     type: mongoose.Schema.ObjectId,
@@ -39,7 +48,7 @@ DomoSchema.statics.findByOwner = (ownerId, callback) => {
     owner: mongoose.Types.ObjectId(ownerId),
   };
 
-  return DomoModel.find(search).select('name age').lean().exec(callback);
+  return DomoModel.find(search).select('name age fact').lean().exec(callback);
 };
 
 DomoModel = mongoose.model('Domo', DomoSchema);
