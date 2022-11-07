@@ -55,6 +55,8 @@ DomoSchema.statics.findByOwner = (ownerId, callback) => {
   // return DomoModel.findById(ownerId).exec(callback);
 };
 
+DomoSchema.static.findIdWithinId = (ownerId) => ownerId;
+
 DomoSchema.statics.findByOwnerAndDelete = async (id, callback) => {
   const search = {
     _id: mongoose.Types.ObjectId(id),
