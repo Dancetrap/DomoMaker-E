@@ -20,6 +20,12 @@ const handleDomo = (e) => {
     return false;
 }
 
+const getDomoId = (e) =>
+{
+    e.preventDefault();
+    helper.hideError();
+}
+
 const DomoForm = (props) => {
     return (
         <form id="domoForm"
@@ -55,10 +61,14 @@ const DomoList = (props) => {
         return (
             <div key = {domo._id} className="domo">
                 <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
+                <h3 className="domoId"> Id: {domo._id} </h3>
                 <h3 className="domoName"> Name: {domo.name} </h3>
                 <h3 className="domoAge"> Age: {domo.age} </h3>
                 <h3 className="domoFact"> Interesting Fact: {domo.fact} </h3>
-                <input type="image" src="/assets/img/trash.png" className="delete" action="/removeDomo" method="GET" onSubmit={handleDomo} />
+                <form action="/removeDomo" onSubmit={handleDomo} method="GET" className="delete">
+                    <input type="image" src="/assets/img/trash.png" />
+                </form>
+                
                 {/* <button className="delete">
                     <img src="/assets/img/trash.png" alt="delete" />
                 </button> */}

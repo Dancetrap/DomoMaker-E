@@ -36,14 +36,9 @@ const getDomos = (req, res) => DomoModel.findByOwner(req.session.account._id, (e
     console.log(err);
     return res.status(400).json({ error: 'An error occurred!' });
   }
-  DomoModel.findById(docs[0/* Need to get this var */]._id).exec((er, doc) => {
-    if (er) {
-      console.log(er);
-      return res.status(400).json({ error: 'An error occurred!' });
-    }
-    console.log(doc);
-    return doc;
-  });
+
+  console.log(docs);
+
   return res.json({ domos: docs });
 });
 
@@ -55,6 +50,11 @@ const getDomoId = (req, res) => DomoModel.findById(req.body._id).select('_id').l
   console.log(docs);
   return docs;
 });
+
+const reqTest = (req, res) => {
+  console.log(req);
+  return res.status(400).json({ request: req });
+};
 
 // I think the req should be the id in that value
 const deleteDomo = (req, res) => DomoModel.findByIdAndDelete(req.body._id).exec((er, doc) => {
@@ -71,5 +71,6 @@ module.exports = {
   makeDomo,
   getDomos,
   getDomoId,
+  reqTest,
   deleteDomo,
 };
