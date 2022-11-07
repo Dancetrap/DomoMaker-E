@@ -212,6 +212,7 @@ nav:nth-child(1) {
     padding: 10px;
     min-height:60px;
     overflow: hidden;
+    position: relative;
 }
 
 .domo:hover {
@@ -231,6 +232,19 @@ img.domoFace {
     float:left;
 }
 
+.delete {
+    position: absolute;
+    top: 5px;
+    right: 25px;
+}
+
+.delete:hover {
+    height: 55px;
+    right: 20px;
+    top: 5px;
+    bottom: 5px;
+}
+
 h3.emptyDomo {
     width: 400px;
     font-size: 1.5em;
@@ -248,7 +262,7 @@ h3.domoName {
 }
 
 h3.domoAge {
-    float: right;
+    float: left;
     text-align: left;
     width: 100px;
     font-weight: bold;

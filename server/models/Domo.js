@@ -41,14 +41,27 @@ const DomoSchema = new mongoose.Schema({
 DomoSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   age: doc.age,
+  fact: doc.fact,
 });
 
 DomoSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: mongoose.Types.ObjectId(ownerId),
   };
-
+  // console.log(ownerId);
   return DomoModel.find(search).select('name age fact').lean().exec(callback);
+
+  // console.log(ownerId);
+  // return DomoModel.findById(ownerId).exec(callback);
+};
+
+DomoSchema.statics.findByOwnerAndDelete = async (id, callback) => {
+  const search = {
+    _id: mongoose.Types.ObjectId(id),
+  };
+
+  // eslint-disable-next-line no-return-await
+  return await DomoModel.find(search).exec(callback);
 };
 
 DomoModel = mongoose.model('Domo', DomoSchema);
