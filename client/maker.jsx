@@ -1,4 +1,5 @@
 const helper = require('./helper.js');
+let csrfToken;
 
 const handleDomo = (e) => {
     e.preventDefault();
@@ -72,7 +73,7 @@ const DomoList = (props) => {
                 <h3 className="domoFact"> Interesting Fact: {domo.fact} </h3>
                 <form action="/removeDomo" onSubmit={removeDomo} method="GET" className="delete">
                     <input id="domoId" type="hidden" name="_id" value={domo._id} />
-                    <input id="_csrf" type="hidden" name="_csrf" value={domo.csrf} />
+                    <input id="_csrf" type="hidden" name="_csrf" value={csrfToken} />
                     <input type="image" src="/assets/img/trash.png" />
                 </form>
                 
@@ -102,9 +103,9 @@ const loadDomosFromServer = async () => {
 const init = async () => {
     const response = await fetch('/getToken');
     const data = await response.json();
-
+    csrfToken = data.csrfToken;
     ReactDOM.render(
-        <DomoForm csrf={data.csrfToken} />,
+        <DomoForm csrf={csrfToken} />,
         document.getElementById('makeDomo')
     );
 

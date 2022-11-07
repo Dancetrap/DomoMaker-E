@@ -48,6 +48,7 @@ const deleteDomo = (req, res) => DomoModel.findByIdAndDelete(req.body._id).exec(
     console.log(er);
     return res.status(400).json({ error: 'An error occurred!' });
   }
+  console.log(doc._id);
   return doc;
 });
 
