@@ -28,6 +28,12 @@ const removeDomo = (e) =>
 
     const _id = e.target.querySelector("#domoId").value;
     const _csrf = e.target.querySelector("#_csrf").value;
+    if(!_id || !_csrf)
+    {
+        helper.handleError('All fields are required!');
+        return false;
+    }
+    
     helper.sendPost(e.target.action, {_id, _csrf}, loadDomosFromServer);
 
     return false;
@@ -94,6 +100,7 @@ const DomoList = (props) => {
 const loadDomosFromServer = async () => {
     const response = await fetch('/getDomos');
     const data = await response.json();
+    console.log(data.domos);
     ReactDOM.render(
         <DomoList domos={data.domos} />,
         document.getElementById('domos')

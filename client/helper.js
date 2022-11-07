@@ -16,6 +16,7 @@ const handleError = (message) => {
     });
   
     const result = await response.json();
+    console.log(result);
     document.getElementById('domoMessage').classList.add('hidden');
   
     if(result.redirect) {
