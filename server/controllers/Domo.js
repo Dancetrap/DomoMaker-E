@@ -36,19 +36,7 @@ const getDomos = (req, res) => DomoModel.findByOwner(req.session.account._id, (e
     console.log(err);
     return res.status(400).json({ error: 'An error occurred!' });
   }
-
-  // console.log(req.params);
-  // docs.forEach((val) => {
-  //   DomoModel.findByOwnerAndDelete(val._id, (er, doc) => {
-  //     if (er) {
-  //       console.log(er);
-  //       return res.status(400).json({ error: 'An error occurred!' });
-  //     }
-  //     console.log(doc);
-  //     return doc;
-  //   });
-  // });
-  DomoModel.findByOwnerAndDelete(docs[0]._id, (er, doc) => {
+  DomoModel.findById(docs[0/* Need to get this var */]._id).exec((er, doc) => {
     if (er) {
       console.log(er);
       return res.status(400).json({ error: 'An error occurred!' });
@@ -59,15 +47,14 @@ const getDomos = (req, res) => DomoModel.findByOwner(req.session.account._id, (e
   return res.json({ domos: docs });
 });
 
-const deleteDomo = (req, res) => DomoModel.findByOwner(req.session.account._id, (e, doc) => {
-  if (e) {
-    console.log(e);
+// I think the req should be the id in that value
+const deleteDomo = (req, res) => DomoModel.findById(req.body._id).exec((er, doc) => {
+  if (er) {
+    console.log(er);
     return res.status(400).json({ error: 'An error occurred!' });
   }
   console.log(doc);
   return doc;
-
-  // I need two ids. The one of the user, and the one of the domo
 });
 
 module.exports = {
