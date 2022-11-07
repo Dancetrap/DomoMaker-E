@@ -21,7 +21,7 @@ const handleDomo = (e) => {
     return false;
 }
 
-const removeDomo = (e) =>
+const removeDomo = async (e) =>
 {
     e.preventDefault();
     helper.hideError();
@@ -33,9 +33,16 @@ const removeDomo = (e) =>
         helper.handleError('All fields are required!');
         return false;
     }
-    
+
     helper.sendPost(e.target.action, {_id, _csrf}, loadDomosFromServer);
 
+    // I had to move all of this up here because for some reason the loadDomosFromServer was not working
+    const response = await fetch('/getDomos');
+    const data = await response.json();
+    ReactDOM.render(
+        <DomoList domos={data.domos} />,
+        document.getElementById('domos')
+    );
     return false;
 }
 
@@ -100,7 +107,6 @@ const DomoList = (props) => {
 const loadDomosFromServer = async () => {
     const response = await fetch('/getDomos');
     const data = await response.json();
-    console.log(data.domos);
     ReactDOM.render(
         <DomoList domos={data.domos} />,
         document.getElementById('domos')
