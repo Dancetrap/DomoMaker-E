@@ -71,6 +71,10 @@ nav:nth-child(1) {
     float:left;
 }
 
+.domoId{
+    display: none;
+}
+
 .makeDomoSubmit {
     transition: background-color 0.4s ease;
     display: inline;

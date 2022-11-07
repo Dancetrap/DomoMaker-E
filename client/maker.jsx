@@ -20,10 +20,16 @@ const handleDomo = (e) => {
     return false;
 }
 
-const getDomoId = (e) =>
+const removeDomo = (e) =>
 {
     e.preventDefault();
     helper.hideError();
+
+    const _id = e.target.querySelector("#domoId").value;
+    const _csrf = e.target.querySelector("#_csrf").value;
+    helper.sendPost(e.target.action, {_id, _csrf}, loadDomosFromServer);
+
+    return false;
 }
 
 const DomoForm = (props) => {
@@ -61,11 +67,12 @@ const DomoList = (props) => {
         return (
             <div key = {domo._id} className="domo">
                 <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
-                {/* <h3 className="domoId"> Id: {domo._id} </h3> */}
                 <h3 className="domoName"> Name: {domo.name} </h3>
                 <h3 className="domoAge"> Age: {domo.age} </h3>
                 <h3 className="domoFact"> Interesting Fact: {domo.fact} </h3>
-                <form action="/removeDomo" onSubmit={handleDomo} method="GET" className="delete">
+                <form action="/removeDomo" onSubmit={removeDomo} method="GET" className="delete">
+                    <input id="domoId" type="hidden" name="_id" value={domo._id} />
+                    <input id="_csrf" type="hidden" name="_csrf" value={domo.csrf} />
                     <input type="image" src="/assets/img/trash.png" />
                 </form>
                 
